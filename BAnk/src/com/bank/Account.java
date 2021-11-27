@@ -1,73 +1,99 @@
-package com.bank;
+package com.banking;
+
+import java.util.Scanner;
 
 public class Account {
 
-	 private String Number;
-	    private double Balance;
-	    private String Name;
-	    private String Email;
-	    private String PhoneNumber;
+	private String Number;
+	private double Balance;
+	private String Name;
+	private String Email;
+	private String PhoneNumber;
 
-	    public Account(String Number,double Balance,String Name,String Email
-	    ,String PhoneNumber){
-	        this.Number = Number;
-	        this.Balance = Balance;
-	        this.Name = Name;
-	        this.Email = Email;
-	        this.PhoneNumber = PhoneNumber;
-	    }
+	public Account(String Number,double Balance,String Name,String Email ,String PhoneNumber, double DepositedMoney, double WithdrawalMoney){
 
-	    public void DepositMoney(double DepositedMoney){
-	        this.Balance+=DepositedMoney;
-	        System.out.println("Deposit is Successful, new Balance is " +this.Balance);
-	    }
+		Scanner sc = new Scanner(System.in);
 
-	    public void WithDrawMoney(double WithdrawalMoney){
-	        if(this.Balance - WithdrawalMoney < 0){
-	            System.out.println("WithDraw Unseccessful only " + this.Balance+" is left");
-	        }else {
-	            this.Balance-=WithdrawalMoney;
-	            System.out.println("Withdraw successful, Current Balance is "+this.Balance);
-	        }
-	    }
+		System.out.println("Please Enter your Account Number: ");
+		Number=sc.next();   
 
-	    public String getNumber() {
-	        return Number;
-	    }
+		System.out.println("Please Enter your Name: ");
+		Name=sc.next();
 
-	    public void setNumber(String number) {
-	        Number = number;
-	    }
+		System.out.println("Please Enter your Email you want to register with Account: ");
+		Email=sc.next();
 
-	    public double getBalance() {
-	        return Balance;
-	    }
+		System.out.println("Please Enter your Phone Number you want to register with Account:");
+		PhoneNumber=sc.next();
 
-	    public void setBalance(double balance) {
-	        Balance = balance;
-	    }
+		System.out.println("\nYour Account has been Successfully created\n\n" + "Following are your Details you have entered:\n\n" + "Account Number: " +Number+ "\nName: " + Name+ "\nEmail: " +Email+ "\nPhone Number: " + PhoneNumber);
 
-	    public String getName() {
-	        return Name;
-	    }
+		System.out.println();
+		System.out.println("Your current Balance is: " + Balance);
+		System.out.println();
 
-	    public void setName(String name) {
-	        Name = name;
-	    }
+		{  
+			while(true) {
+				System.out.println("Welcome to Automated Teller Machine");  
+				System.out.println("Press 1 for Withdraw");  
+				System.out.println("Press 2 for Deposit");  
+				System.out.println("Press 3 for Check Balance");  
+				System.out.println("Press 4 for Account Details");  
+				System.out.println("Press 5 for EXIT");  
+				System.out.print("\nChoose the operation you want to perform:");  
 
-	    public String getEmail() {
-	        return Email;
-	    }
+				//user  
+				int choice = sc.nextInt();  
 
-	    public void setEmail(String email) {
-	        Email = email;
-	    }
+				switch(choice)  
+				{  
+				case 1:  
+					System.out.print("\nEnter money to be withdrawn:");  
 
-	    public String getPhoneNumber() {
-	        return PhoneNumber;
-	    }
+					//withdrawal amount from user  
+					WithdrawalMoney = sc.nextInt();  
 
-	    public void setPhoneNumber(String phoneNumber) {
-	        PhoneNumber = phoneNumber;
-	    }
+					//check whether the balance is greater than or equal to the withdrawal amount  
+					if(this.Balance - WithdrawalMoney < 0){
+						System.out.println("\n"+Name+ ", Withdraw unseccessful only " + this.Balance+" is left");
+					}else {
+						this.Balance-=WithdrawalMoney;
+						System.out.println("\n"+Name+ ", Withdraw successful, Current Balance is "+this.Balance);
+					}
+
+				case 2: 
+
+					System.out.print("\nEnter money to be deposited:");  
+
+					//amount from user  
+					DepositedMoney = sc.nextInt();
+					if(DepositedMoney<=0) {
+						System.out.println("\nInvalid insertion!");
+					}
+					else {
+						this.Balance+=DepositedMoney;
+						System.out.println("\n"+Name+ ", Deposit is Successful, new Balance is " +this.Balance);
+
+						break;  
+					}
+				case 3:  
+					//displaying the total balance of the user  
+					System.out.println("\nBalance : "+this.Balance);  
+					System.out.println("");  
+					break;  
+
+				case 4:
+					System.out.println("\nAccount Details:\n" + "\nAccount Number: " +Number+ "\nName: " + Name+ "\nEmail: " +Email+ "\nPhone Number: " + PhoneNumber);
+					;
+
+				case 5:  
+					//exit from the menu  
+					System.out.println("\nThank you "+Name+" for Banking with us.");
+					System.exit(0);  
+				}
+				System.out.println();
+			}
+
+		}
 	}
+}
